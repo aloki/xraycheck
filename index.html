@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-Ray.Check</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d0d0d;
+            --card: #1a1a1a;
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #ffffff;
+            --text-muted: #a0a0a0;
+            --accent: #22c55e;
+            --accent-hover: #16a34a;
+            --gradient-start: #6366f1;
+            --gradient-end: #8b5cf6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 2rem 1.5rem 3rem;
+        }
+
+        .page {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+
+        .section-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-icon {
+            width: 48px;
+            height: 48px;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s, border-color 0.2s, transform 0.2s;
+        }
+
+        .section-icon:hover {
+            color: var(--text);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
+        }
+
+        .section-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .header-title {
+            text-align: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .header-title h1 {
+            font-size: clamp(2.25rem, 6vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .header-title .brand {
+            color: var(--text);
+        }
+
+        .header-title .brand-accent {
+            color: var(--accent);
+        }
+
+        .header-subtitle {
+            text-align: center;
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            max-width: 420px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Section */
+        .section-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .config-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .config-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .config-card .download-icon {
+            width: 40px;
+            height: 40px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .config-card .download-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .config-card .info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .config-card .title-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .config-card .title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .config-card .badge {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 9999px;
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--accent);
+        }
+
+        .config-card .updated {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            margin-top: 0.2rem;
+        }
+
+        .config-card .actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .config-card .action-group {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .config-card .action-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .config-card .action-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .config-card .action-btn:hover {
+            color: var(--text);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .config-card .action-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Copy notice */
+        .copy-notice {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(8px);
+            padding: 0.75rem 1.5rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s, transform 0.2s;
+            z-index: 100;
+        }
+
+        .copy-notice.is-visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* VPN clients table */
+        .vpn-section {
+            margin-top: 4rem;
+        }
+
+        .vpn-table-wrap {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            overflow: hidden;
+        }
+
+        .vpn-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+
+        .vpn-table th {
+            text-align: left;
+            padding: 1rem 1.25rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.75rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .vpn-table td {
+            padding: 0.75rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            vertical-align: top;
+        }
+
+        .vpn-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .vpn-table a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 0.35rem;
+        }
+
+        .vpn-table a:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        .vpn-table a:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+        }
+
+        .view-counter {
+            text-align: center;
+            margin-top: 0.75rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .view-counter span {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        @media (max-width: 640px) {
+            .config-card {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .config-card .actions {
+                justify-content: flex-end;
+                flex-wrap: wrap;
+            }
+
+            .vpn-table-wrap {
+                overflow-x: auto;
+            }
+
+            .vpn-table th,
+            .vpn-table td {
+                padding: 0.6rem 0.75rem;
+                font-size: 0.8125rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header>
+            <div class="header-title">
+                <h1><span class="brand">X-Ray.</span><span class="brand-accent">Check</span></h1>
+            </div>
+            <p class="header-subtitle"></p>
+        </header>
+
+        <div class="section-icons">
+            <a href="https://t.me/XRayCheckSupportBot" class="section-icon" target="_blank" rel="noopener noreferrer" title="XRayCheck Support в Telegram">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            </a>
+            <a href="https://github.com/WhitePrime/xraycheck" class="section-icon" target="_blank" rel="noopener noreferrer" title="GitHub repository">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+        </div>
+        <h2 class="section-title">Configurations</h2>
+        <div class="config-list">
+            <article class="config-card">
+                <span class="download-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span>
+                <div class="info">
+                    <div class="title-row">
+                        <span class="title">Available (Top 100)</span>
+                        <span class="badge">Popular</span>
+                    </div>
+                    <div class="updated" data-file="configs/available(top100)">Updated automatically</div>
+                </div>
+                <div class="actions">
+                    <span class="action-group"><span class="action-label">Main:</span><button type="button" class="action-btn" data-copy-link data-href="https://whiteprime.github.io/xraycheck/configs/available(top100)" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></span>
+                </div>
+            </article>
+
+            <article class="config-card">
+                <span class="download-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span>
+                <div class="info">
+                    <div class="title-row">
+                        <span class="title">White List (Top 100)</span>
+                        <span class="badge">For CIDR</span>
+                    </div>
+                    <div class="updated" data-file="configs/white-list_available(top100)">Updated automatically</div>
+                </div>
+                <div class="actions">
+                    <span class="action-group"><span class="action-label">Main:</span><button type="button" class="action-btn" data-copy-link data-href="https://whiteprime.github.io/xraycheck/configs/white-list_available(top100)" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></span>
+                </div>
+            </article>
+
+            <article class="config-card">
+                <span class="download-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span>
+                <div class="info">
+                    <div class="title-row">
+                        <span class="title">Full Available List</span>
+                    </div>
+                    <div class="updated" data-file="configs/available">Updated automatically</div>
+                </div>
+                <div class="actions">
+                    <span class="action-group"><span class="action-label">Main:</span><button type="button" class="action-btn" data-copy-link data-href="https://whiteprime.github.io/xraycheck/configs/available" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></span>
+                </div>
+            </article>
+
+            <article class="config-card">
+                <span class="download-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span>
+                <div class="info">
+                    <div class="title-row">
+                        <span class="title">Full White List</span>
+                    </div>
+                    <div class="updated" data-file="configs/white-list_available">Updated automatically</div>
+                </div>
+                <div class="actions">
+                    <span class="action-group"><span class="action-label">Main:</span><button type="button" class="action-btn" data-copy-link data-href="https://whiteprime.github.io/xraycheck/configs/white-list_available" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></span>
+                </div>
+            </article>
+
+            <article class="config-card">
+                <span class="download-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span>
+                <div class="info">
+                    <div class="title-row">
+                        <span class="title">Available Speedtest</span>
+                        <span class="badge">Experimental</span>
+                    </div>
+                    <div class="updated" data-file="configs/available_st">Updated automatically</div>
+                </div>
+                <div class="actions">
+                    <span class="action-group"><span class="action-label">Main:</span><button type="button" class="action-btn" data-copy-link data-href="https://whiteprime.github.io/xraycheck/configs/available_st" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></span>
+                </div>
+            </article>
+
+            <article class="config-card">
+                <span class="download-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span>
+                <div class="info">
+                    <div class="title-row">
+                        <span class="title">White List Speedtest</span>
+                        <span class="badge">Experimental</span>
+                    </div>
+                    <div class="updated" data-file="configs/white-list_available_st">Updated automatically</div>
+                </div>
+                <div class="actions">
+                    <span class="action-group"><span class="action-label">Main:</span><button type="button" class="action-btn" data-copy-link data-href="https://whiteprime.github.io/xraycheck/configs/white-list_available_st" title="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></span>
+                </div>
+            </article>
+        </div>
+
+        <h2 class="section-title vpn-section">VPN clients</h2>
+        <div class="vpn-table-wrap">
+            <table class="vpn-table">
+                <thead>
+                    <tr>
+                        <th>Android</th>
+                        <th>Windows</th>
+                        <th>Apple</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="https://github.com/dyhkwong/Exclave/releases/" target="_blank" rel="noopener noreferrer">Exclave</a></td>
+                        <td><a href="https://github.com/throneproj/Throne/releases" target="_blank" rel="noopener noreferrer">Throne</a></td>
+                        <td><a href="https://apps.apple.com/ru/app/v2box-v2ray-client/id6446814690" target="_blank" rel="noopener noreferrer">V2Box</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://play.google.com/store/apps/details?id=com.v2raytun.android" target="_blank" rel="noopener noreferrer">v2rayTun</a></td>
+                        <td><a href="https://storage.v2raytun.com/v2RayTun_Setup.exe" target="_blank" rel="noopener noreferrer">v2RayTun</a></td>
+                        <td><a href="https://apps.apple.com/en/app/v2raytun/id6476628951" target="_blank" rel="noopener noreferrer">v2RayTun</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://play.google.com/store/apps/details?id=com.happproxy" target="_blank" rel="noopener noreferrer">Happ</a></td>
+                        <td><a href="https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe" target="_blank" rel="noopener noreferrer">Happ</a></td>
+                        <td><a href="https://apps.apple.com/ru/app/happ-proxy-utility-plus/id6746188973" target="_blank" rel="noopener noreferrer">Happ</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="footer">Configurations are updated automatically</p>
+        <p class="view-counter">Views: <span id="busuanzi_value_page_pv">-</span></p>
+    </div>
+
+    <div class="copy-notice" id="copy-notice" aria-live="polite">Link copied</div>
+
+    <script>
+        (function() {
+            var notice = document.getElementById('copy-notice');
+            function showNotice() {
+                if (notice) {
+                    notice.classList.add('is-visible');
+                    setTimeout(function() { notice.classList.remove('is-visible'); }, 2000);
+                }
+            }
+            function copyUrl(url) {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(url).then(showNotice).catch(fallback);
+                } else {
+                    fallback();
+                }
+                function fallback() {
+                    var ta = document.createElement('textarea');
+                    ta.value = url;
+                    ta.setAttribute('readonly', '');
+                    ta.style.position = 'absolute';
+                    ta.style.left = '-9999px';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    try {
+                        document.execCommand('copy');
+                        showNotice();
+                    } catch (e) {}
+                    document.body.removeChild(ta);
+                }
+            }
+            document.querySelectorAll('[data-copy-link][data-href]').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var url = this.getAttribute('data-href');
+                    if (url) copyUrl(url);
+                });
+            });
+
+            function formatMsk(isoDateStr) {
+                var d = new Date(isoDateStr);
+                var timeStr = d.toLocaleTimeString('ru-RU', { timeZone: 'Europe/Moscow', hour: '2-digit', minute: '2-digit', hour12: false });
+                var dateStr = d.toLocaleDateString('ru-RU', { timeZone: 'Europe/Moscow', day: '2-digit', month: '2-digit', year: 'numeric' });
+                return timeStr + ' ' + dateStr;
+            }
+            function setUpdated(el, text, count) {
+                if (!el) return;
+                el.textContent = 'Updated: ' + text + (count != null ? ' · ' + count.toLocaleString('ru-RU') + ' configs' : '');
+            }
+            fetch('configs/last-updated.json')
+                .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+                .then(function(data) {
+                    if (!data || typeof data !== 'object') return;
+                    document.querySelectorAll('.updated[data-file]').forEach(function(el) {
+                        var path = el.getAttribute('data-file');
+                        var val = path && data[path];
+                        if (!val) return;
+                        var iso = typeof val === 'string' ? val : val.updated;
+                        var count = typeof val === 'object' && val.count != null ? val.count : null;
+                        if (iso) setUpdated(el, formatMsk(iso), count);
+                    });
+                })
+                .catch(function() {});
+        })();
+    </script>
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>
